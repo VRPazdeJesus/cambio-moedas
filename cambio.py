@@ -1,5 +1,7 @@
 import requests
 import json
+import pandas as pd
+import decimal
 
 url = "http://data.fixer.io/api/latest?access_key=5d0eb200bb9fb42872430c207728160f"
 print("Acessando base de dados...")
@@ -11,11 +13,15 @@ if response.status_code == 200:
     dados = response.json()
     day = dados['date']
     print("Acessando dados do dia %s/%s/%s" % (day[8:], day[5:7], day[0:4]))
-    euro_real = dados['rates']['BRL'] / dados['rates']['EUR']
-    dollar_real = dados['rates']['BRL'] / dados['rates']['USD']
-    btc_real = dados['rates']['BRL'] / dados['rates']['BTC']
+    euro_real = round(dados['rates']['BRL'] / dados['rates']['EUR'], 2)
+    dollar_real = round(dados['rates']['BRL'] / dados['rates']['USD'], 2)
+    btc_real = round(dados['rates']['BRL'] / dados['rates']['BTC'], 2)
     print("%.2f" % euro_real)
     print("%.2f" % dollar_real)
     print("%.2f" % btc_real)
+    print("Gerando o arquivo CSV...")
+    df = pd.DataFrame({'Moedas': ['Euro', 'Dollar', 'Bitcoin'], 'Valores':[euro_real, dollar_real, btc_real]})
+    df.to_csv("valores.csv", index=False, sep=";")
+    print("Arquivo gerado e exportado com sucesso para a pasta do projeto!")
 else:
     print("Site com problemas!")
