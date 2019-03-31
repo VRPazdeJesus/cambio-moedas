@@ -9,6 +9,8 @@ if response.status_code == 200:
     print("Conseguiu acessar base de dados!")
     print("Buscando informações das moedas...")
     dados = response.json()
+    day = dados['date']
+    print("Acessando dados do dia %s/%s/%s" % (day[8:], day[5:7], day[0:4]))
     euro_real = dados['rates']['BRL'] / dados['rates']['EUR']
     dollar_real = dados['rates']['BRL'] / dados['rates']['USD']
     btc_real = dados['rates']['BRL'] / dados['rates']['BTC']
