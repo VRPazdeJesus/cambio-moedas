@@ -6,6 +6,8 @@ Um script para pegar os valores, via requeisição web, das cotações das princ
   - Euro
   - Bitcoin
 
+API utilizada: [FIXER.IO](https://fixer.io/)
+
 ### Desenvolvedor
 
  - Víctor Romário
